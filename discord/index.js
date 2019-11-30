@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 
 const logger = require('../common/logger')(module.filename);
-const mongo = require('../common/mongo');
 const consts = require('../common/consts');
 
 

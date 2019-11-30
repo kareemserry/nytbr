@@ -21,13 +21,16 @@ const ours = (msg) => {
 
 const env = process.env;
 var envs = {
+    //common
     profile: env.NYTBR_PROFILE,
-    helpMessage: env.NYTBR_HELP_MESSAGE,
-    helpMap: env.NYTBR_HELP_MAP,
     logLevel: env.NYTBR_LOG_LEVEL,
     dbString: env.NYTBR_DB_CON,
     token: env.NYTBR_DISCORD_TOKEN,
-    backendUrl: env.NYTBR_BACKEND_URL
+    backendUrl: env.NYTBR_BACKEND_URL,
+    backendPort: env.NYTBR_BACKEND_PORT,
+    //discord
+    helpMessage: env.NYTBR_HELP_MESSAGE,
+    helpMap: env.NYTBR_HELP_MAP
 };
 
 const isDev = () => {

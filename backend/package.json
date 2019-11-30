@@ -1,0 +1,14 @@
+{
+  "name": "nytbr_backend",
+  "version": "0.0.1",
+  "description": "backend server for nytbr",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kareem serry, karim hesham",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
