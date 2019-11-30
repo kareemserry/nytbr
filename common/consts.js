@@ -26,7 +26,8 @@ var envs = {
     helpMap: env.NYTBR_HELP_MAP,
     logLevel: env.NYTBR_LOG_LEVEL,
     dbString: env.NYTBR_DB_CON,
-    token: env.NYTBR_DISCORD_TOKEN
+    token: env.NYTBR_DISCORD_TOKEN,
+    backendUrl: env.NYTBR_BACKEND_URL
 };
 
 const isDev = () => {
