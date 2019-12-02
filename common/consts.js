@@ -30,7 +30,15 @@ var envs = {
     backendPort: env.NYTBR_BACKEND_PORT,
     //discord
     helpMessage: env.NYTBR_HELP_MESSAGE,
-    helpMap: env.NYTBR_HELP_MAP
+    helpMap: env.NYTBR_HELP_MAP,
+    //Firebase
+    apiKey: env.NYTBR_FIREBASE_API_KEY,
+    authDomain: env.NYTBR_FIREBASE_AUTH_DOMAIN,
+    databaseURL: env.NYTBR_FIREBASE_DATABASE_URL,
+    projectId: env.NYTBR_FIREBASE_PROJECT_ID,
+    storageBucket: env.NYTBR_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: env.NYTBR_FIREBASE_MESSAGING_SENDER_ID,
+    appId: env.NYTBR_FIREBASE_APP_ID,
 };
 
 const isDev = () => {
