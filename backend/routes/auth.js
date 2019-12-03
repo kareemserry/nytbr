@@ -7,8 +7,16 @@ const router = express.Router();
 
 router.use(express.json());
 
+const validator = require("../validations/auth");
+
+
 // Registers User using email and password
 router.post("/register", async (req, res) => {
+    const isValidated = validator.registerValidation(req.body);
+    if (isValidated.error)
+        return res
+            .status(400)
+            .send({ error: isValidated.error.details[0].message });
     var email = req.body.email;
     var password = req.body.password;
     try {
@@ -17,9 +25,7 @@ router.post("/register", async (req, res) => {
                 return res.json({ data: data, msg: "User Successfully registered" });
             }).catch(function (error) {
                 // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                return res.status(errorCode).json(errorMessage)
+                return res.status(400).json({ error: error.message })
             })
     }
     catch (e) {
@@ -28,6 +34,11 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+    const isValidated = validator.loginValidation(req.body);
+    if (isValidated.error)
+        return res
+            .status(400)
+            .send({ error: isValidated.error.details[0].message });
     var email = req.body.email;
     var password = req.body.password;
     try {
@@ -37,9 +48,10 @@ router.post("/login", async (req, res) => {
             })
             .catch(function (error) {
                 // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ...
+                if (error.message == 'There is no user record corresponding to this identifier. The user may have been deleted.') {
+                    return res.status(400).json({ error: "User doesn't exist" })
+                }
+                return res.status(400).json({ error: error.message })
             });
 
     }
