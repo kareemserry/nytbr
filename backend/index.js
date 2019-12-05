@@ -10,7 +10,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/users", routes.auth);
+app.use('/users', routes.auth);
+app.use('/discord', routes.discord);
 
 app.use('/*', (req, res) => {
     res.status(404).send("Not Found");
