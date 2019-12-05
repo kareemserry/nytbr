@@ -1,4 +1,5 @@
 module.exports = {
     auth: require('./auth'),
-    discord: require('./discord')
+    discord: require('./discord'),
+    books: require('./books')
 }

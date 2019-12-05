@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 
 app.use('/users', routes.auth);
 app.use('/discord', routes.discord);
+app.use('/books', routes.books);
 
 app.use('/*', (req, res) => {
     res.status(404).send("Not Found");
