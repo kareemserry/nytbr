@@ -14,6 +14,14 @@ const prefixes = {
     info: 'info'
 };
 
+const firebase = {
+    errorMessage: {
+        invalidPassword: 'The password is invalid or the user does not have a password.',
+        invalidIdentifier: 'There is no user record corresponding to this identifier. The user may have been deleted.',
+        duplicateEmail: 'The email address is already in use by another account.'
+    }
+}
+
 const ours = (msg) => {
     var msgPrefix = msg.content.split(' ')[0].toLowerCase();
     return msgPrefix === prefix || msgPrefix === prefixShort;
@@ -30,7 +38,15 @@ var envs = {
     backendPort: env.NYTBR_BACKEND_PORT,
     //discord
     helpMessage: env.NYTBR_HELP_MESSAGE,
-    helpMap: env.NYTBR_HELP_MAP
+    helpMap: env.NYTBR_HELP_MAP,
+    //Firebase
+    apiKey: env.NYTBR_FIREBASE_API_KEY,
+    authDomain: env.NYTBR_FIREBASE_AUTH_DOMAIN,
+    databaseURL: env.NYTBR_FIREBASE_DATABASE_URL,
+    projectId: env.NYTBR_FIREBASE_PROJECT_ID,
+    storageBucket: env.NYTBR_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: env.NYTBR_FIREBASE_MESSAGING_SENDER_ID,
+    appId: env.NYTBR_FIREBASE_APP_ID,
 };
 
 const isDev = () => {
@@ -55,5 +71,6 @@ module.exports = {
     prefixes,
     utils,
     envs,
-    emoji
+    emoji,
+    firebase
 };
