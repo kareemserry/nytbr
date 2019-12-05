@@ -54,6 +54,7 @@ router.post("/login", async (req, res) => {
                     discordID: '',
                     email: user.email,
                 });
+                req.session.user = user;
                 return res.json({ msg: "User Successfully logged in", data: data });
             })
             .catch(function (error) {
@@ -77,9 +78,11 @@ router.post("/login", async (req, res) => {
 router.post("/signout", async (req, res) => {
     try {
         firebase.auth().signOut().then(function () {
+            logger.info(`User ${req.session.user.email} signed out`);
+            req.session.destroy();
             return res.json({ msg: "User Successfully Signed Out" });
         }).catch(function (error) {
-            return res.status(500).json({ error: 'Signout Failed' })
+            return res.status(500).json({ error: 'Signout Failed' });
         });
     }
     catch (e) {
