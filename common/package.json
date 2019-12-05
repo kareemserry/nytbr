@@ -9,6 +9,7 @@
   "author": "kareem serry, kareem hisham",
   "license": "ISC",
   "dependencies": {
+    "firebase": "^7.5.0",
     "mongoose": "^5.7.13",
     "winston": "^3.2.1"
   }
