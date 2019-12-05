@@ -5,12 +5,12 @@ const consts = require('../common/consts');
 const util = require('util');
 
 const Urls = {
-    nytimesFiction: 'https://api.nytimes.com/svc/books/v3/lists/current/combined-print-and-e-book-fiction?api-key' + consts.envs.nytKey,
-    nytimesNonFiction: 'https://api.nytimes.com/svc/books/v3/lists/current/combined-print-and-e-book-nonfiction?api-key' + consts.envs.nytKey
+    nytimesFiction: 'https://api.nytimes.com/svc/books/v3/lists/current/combined-print-and-e-book-fiction?api-key=' + consts.envs.nytKey,
+    nytimesNonFiction: 'https://api.nytimes.com/svc/books/v3/lists/current/combined-print-and-e-book-nonfiction?api-key=' + consts.envs.nytKey
 };
 
-const nytimesFiction = axios.create({ baseURL: nytimesFiction });
-const nytimesFiction = axios.create({ baseURL: nytimesNonFiction });
+const nytimesFiction = axios.create({ baseURL: Urls.nytimesFiction });
+const nytimesNonFiction = axios.create({ baseURL: Urls.nytimesNonFiction });
 
 module.exports = {
     nytimesFiction,

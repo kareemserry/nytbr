@@ -1,9 +1,9 @@
 const Joi = require("joi");
 
 module.exports = {
-    discordValidation: request => {
+    favouritesValidation: request => {
         const schema = {
-            discordID: Joi.string().required()
+            isbn: Joi.string().required()
         };
         return Joi.validate(request, schema);
     }
