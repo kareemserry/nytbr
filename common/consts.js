@@ -47,6 +47,9 @@ var envs = {
     storageBucket: env.NYTBR_FIREBASE_STORAGE_BUCKET,
     messagingSenderId: env.NYTBR_FIREBASE_MESSAGING_SENDER_ID,
     appId: env.NYTBR_FIREBASE_APP_ID,
+
+    //nyt
+    nytKey: env.NYTBR_NYT_API_KEY
 };
 
 const isDev = () => {
