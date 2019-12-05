@@ -11,13 +11,17 @@ router.use(express.json());
 
 router.post('', async (req, res) => {
     try {
-        const user = await firebase.auth().currentUser
-        if (!user) return res.status(401);
+        const user = req.session.user
+        if (!user) return res.status(401).send();
         const isValidated = validator.discordValidation(req.body);
-        if (isValidated.error)
+        if (isValidated.error) {
             return res
                 .status(400)
                 .send({ error: isValidated.error.details[0].message }); return res.status(200).json(user);
+        }
+        await firebase.firestore().collection('users').doc(user.uid).set({ discordID: req.body.discordID }, { merge: true })
+        logger.info(`discord id for user ${user.email} set to ${req.body.discordID}`);
+        return res.status(200).send();
     } catch (e) {
         logger.error(e);
         return res.status(500);
