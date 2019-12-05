@@ -4,11 +4,12 @@ const consts = require('../../common/consts')
 const express = require('express');
 const validator = require('../validations/discord')
 
+const books = require('./discord/books')
 
 const router = express.Router();
 
 router.use(express.json());
-
+router.use('/books', books);
 router.post('', async (req, res) => {
     try {
         const user = req.session.user
