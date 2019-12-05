@@ -2,10 +2,10 @@ const logger = require('../../common/logger')(module.filename);
 const consts = require('../../common/consts');
 const util = require('util');
 
-const helpMessage = consts.utils.isDev() ? '>>>' +
-    ' `!nytbr help`\n\tReturns list of available TFT Stats commands' + '\n\n' +
-    ' `!nytbr help <command>`\n\tReturns detailed discription of command' + '\n\n'
-    : consts.envs.helpMessage;
+const helpMessage = '>>>' +
+    ' `!nytbr help`\n\tReturns list of available NYT\'s Bestreads commands' + '\n\n' +
+    ' `!nytbr help <command>`\n\tReturns detailed discription of command' + '\n\n' +
+    ' `!nytbr books`\n\tReturns best selling books'
 
 
 // ~ts help || ~ts help <command>
@@ -17,14 +17,14 @@ const help = async (args, channel) => {
     }
 };
 
-const helpMap = consts.utils.isDev() ?
-    {
-        help: '>>> No one can help you here ...',
-        other: '>>> <command> is not a valid command.',
-        link: '>>> `!nytbr link`\n\tclick the provided link to connect your accounts\n' +
-            '\t\tExample: *!nytbr link*',
-    }
-    : JSON.parse(consts.envs.helpMap);
+const helpMap =
+{
+    help: '>>> No one can help you here ...',
+    other: '>>> <command> is not a valid command.',
+    link: '>>> `!nytbr link`\n\tclick the provided link to connect your accounts\n' +
+        '\t\tExample: *!nytbr link*',
+    books: '>>> `!nytbr books`\n\treturns top 30 fiction and non-fiction current best selling books'
+}
 
 const getHelpMessage = (command) => {
     if (Object.values(consts.prefixes).includes(command)) {
