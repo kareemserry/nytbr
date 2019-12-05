@@ -30,7 +30,7 @@ router.get('/fav', async (req, res) => {
     if (!user) {
         logger.warn(`user ${sessionUser.email} has no data!`)
     }
-    res.status(200).json(user.data().favourites);
+    return res.status(200).json(user.data().favourites);
 })
 router.get('/fav', async (req, res) => {
     const sessionUser = req.session.user
@@ -38,9 +38,9 @@ router.get('/fav', async (req, res) => {
     const user = await firebase.firestore().collection('users').doc(sessionUser.uid).get()
     if (!user) {
         logger.err(`user ${sessionUser.email} has no data!`)
-        res.status(500).send()
+        return res.status(500).send()
     }
-    res.status(200).json(user.data().favourites);
+    return res.status(200).json(user.data().favourites);
 })
 router.post('/fav', async (req, res) => {
     const sessionUser = req.session.user
@@ -49,12 +49,12 @@ router.post('/fav', async (req, res) => {
     if (isValidated.error) {
         return res
             .status(400)
-            .send({ error: isValidated.error.details[0].message }); return res.status(200).json(user);
+            .send({ error: isValidated.error.details[0].message });
     }
     const user = await firebase.firestore().collection('users').doc(sessionUser.uid).get()
     if (!user) {
         logger.err(`user ${sessionUser.email} has no data!`)
-        res.status(500).send()
+        return res.status(500).send()
     }
     const newFavs = user.data().favourites;
     if (!newFavs.includes(req.body.isbn))
@@ -64,10 +64,10 @@ router.post('/fav', async (req, res) => {
             .doc(sessionUser.uid).set(
                 { favourites: newFavs },
                 { merge: true });
-        return res.status(201).json({ message: "book added to favorites!" });
+        return res.status(201).json({ message: "book added to favourites!" });
     } catch (err) {
         logger.warn(err)
-        res.status(500).send()
+        return res.status(500).send()
     }
 })
 
@@ -78,12 +78,12 @@ router.delete('/fav', async (req, res) => {
     if (isValidated.error) {
         return res
             .status(400)
-            .send({ error: isValidated.error.details[0].message }); return res.status(200).json(user);
+            .send({ error: isValidated.error.details[0].message });
     }
     const user = await firebase.firestore().collection('users').doc(sessionUser.uid).get()
     if (!user) {
         logger.err(`user ${sessionUser.email} has no data!`)
-        res.status(500).send()
+        return res.status(500).send()
     }
     const newFavs = user.data().favourites;
     var index = newFavs.indexOf(req.body.isbn);
@@ -91,17 +91,18 @@ router.delete('/fav', async (req, res) => {
         newFavs.splice(index, 1);
     }
     else
-        res.status(404).json({ error: 'book not a favourite' })
+        return res.status(404).json({ error: 'book not a favourite' })
     try {
         await firebase.firestore().collection('users')
             .doc(sessionUser.uid).set(
                 { favourites: newFavs },
                 { merge: true });
-        return res.status(200).json({ message: "book deleted from favorites!" });
+        return res.status(200).json({ message: "book deleted from favourites!" });
     } catch (err) {
         logger.warn(err)
-        res.status(500).send()
+        return res.status(500).send()
     }
 })
+
 
 module.exports = router;
