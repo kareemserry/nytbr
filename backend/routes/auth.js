@@ -1,6 +1,7 @@
 const firebase = require("../../common/firebase");
 const logger = require('../../common/logger')(module.filename);
-express = require("express");
+const consts = require('../../common/consts')
+const express = require("express");
 
 
 const router = express.Router();
@@ -22,13 +23,17 @@ router.post("/register", async (req, res) => {
     try {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((data) => {
+                logger.info(`Registration Successful: ${data.user.email}`)
                 return res.json({ data: data, msg: "User Successfully registered" });
             }).catch(function (error) {
-                // Handle Errors here.
+                logger.warn('Registration Failed: ', error)
+                if (error.message == consts.firebase.errorMessage.duplicateEmail)
+                    return res.status(409).json({ error: error.message })
                 return res.status(400).json({ error: error.message })
             })
     }
     catch (e) {
+        logger.warn('Registration Failed: ', e)
         return res.status(400).json({ error: 'Registration Failed' });
     }
 });
@@ -48,14 +53,18 @@ router.post("/login", async (req, res) => {
             })
             .catch(function (error) {
                 // Handle Errors here.
-                if (error.message == 'There is no user record corresponding to this identifier. The user may have been deleted.') {
-                    return res.status(400).json({ error: "User doesn't exist" })
+                if (error.message == consts.firebase.errorMessage.invalidIdentifier
+                    || error.message == consts.firebase.errorMessage.invalidPassword) {
+                    logger.warn(`Login failed ${email}`)
+                    return res.status(401).json({ error: "Invalid Credentials" })
                 }
+                logger.warn(`Login failed ${email}`)
                 return res.status(400).json({ error: error.message })
             });
 
     }
     catch (e) {
+        logger.warn(`Login failed ${email}`)
         return res.status(400).json({ error: 'Login Failed' });
     }
 });
@@ -65,11 +74,11 @@ router.post("/signout", async (req, res) => {
         firebase.auth().signOut().then(function () {
             return res.json({ msg: "User Successfully Signed Out" });
         }).catch(function (error) {
-            // An error happened.
+            return res.status(500).json({ error: 'Signout Failed' })
         });
     }
     catch (e) {
-        return res.status(400).json({ error: 'Signout Failed' });
+        return res.status(500).json({ error: 'Signout Failed' });
     }
 });
 

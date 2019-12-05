@@ -14,6 +14,14 @@ const prefixes = {
     info: 'info'
 };
 
+const firebase = {
+    errorMessage: {
+        invalidPassword: 'The password is invalid or the user does not have a password.',
+        invalidIdentifier: 'There is no user record corresponding to this identifier. The user may have been deleted.',
+        duplicateEmail: 'The email address is already in use by another account.'
+    }
+}
+
 const ours = (msg) => {
     var msgPrefix = msg.content.split(' ')[0].toLowerCase();
     return msgPrefix === prefix || msgPrefix === prefixShort;
@@ -63,5 +71,6 @@ module.exports = {
     prefixes,
     utils,
     envs,
-    emoji
+    emoji,
+    firebase
 };

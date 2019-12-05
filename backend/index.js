@@ -1,11 +1,8 @@
 const express = require('express');
 const consts = require('../common/consts');
 const logger = require('../common/logger')(module.filename);
-const auth = require("./routes/auth");
+const routes = require("./routes/index");
 const bodyParser = require("body-parser");
-
-
-
 
 express.json({ strict: true });
 const app = express();
@@ -13,11 +10,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-app.use("/users", auth);
+app.use("/users", routes.auth);
 
 app.use('/*', (req, res) => {
-    res.status(404).send("not found");
+    res.status(404).send("Not Found");
 });
 
 app.listen(consts.envs.backendPort, () => {
