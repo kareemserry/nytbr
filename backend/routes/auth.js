@@ -22,7 +22,11 @@ router.post("/register", async (req, res) => {
     var password = req.body.password;
     try {
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((data) => {
+            .then(async (data) => {
+                var user = data.user;
+                await firebase.firestore().collection('users').doc(user.uid).set({
+                    favourites: [],
+                });
                 logger.info(`Registration Successful: ${data.user.email}`)
                 return res.json({ data: data, msg: "User Successfully registered" });
             }).catch(function (error) {
@@ -49,11 +53,7 @@ router.post("/login", async (req, res) => {
     try {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(async (data) => {
-                var user = data.user;
-                await firebase.firestore().collection('users').doc(user.uid).set({
-                    discordID: '',
-                    email: user.email,
-                });
+                req.session.user = data.user;
                 return res.json({ msg: "User Successfully logged in", data: data });
             })
             .catch(function (error) {
@@ -63,13 +63,15 @@ router.post("/login", async (req, res) => {
                     logger.warn(`Login failed ${email}`)
                     return res.status(401).json({ error: "Invalid Credentials" })
                 }
-                logger.warn(`Login failed ${email}`)
+                logger.warn(`Login failed ${email}`);
+                logger.warn(error);
                 return res.status(400).json({ error: error.message })
             });
 
     }
     catch (e) {
         logger.warn(`Login failed ${email}`)
+        logger.warn(e);
         return res.status(400).json({ error: 'Login Failed' });
     }
 });
@@ -77,12 +79,16 @@ router.post("/login", async (req, res) => {
 router.post("/signout", async (req, res) => {
     try {
         firebase.auth().signOut().then(function () {
+            logger.info(`User ${req.session.user.email} signed out`);
+            req.session.destroy();
             return res.json({ msg: "User Successfully Signed Out" });
         }).catch(function (error) {
-            return res.status(500).json({ error: 'Signout Failed' })
+            logger.error(error);
+            return res.status(500).json({ error: 'Signout Failed' });
         });
     }
     catch (e) {
+        logger.error(e);
         return res.status(500).json({ error: 'Signout Failed' });
     }
 });
