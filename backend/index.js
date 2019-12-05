@@ -11,7 +11,7 @@ app.use(session({
     secret: consts.envs.apiKey,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { secure: false }
 }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
