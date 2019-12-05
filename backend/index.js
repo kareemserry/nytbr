@@ -3,9 +3,16 @@ const consts = require('../common/consts');
 const logger = require('../common/logger')(module.filename);
 const routes = require("./routes/index");
 const bodyParser = require("body-parser");
-
+const session = require('express-session');
 express.json({ strict: true });
 const app = express();
+
+app.use(session({
+    secret: consts.envs.apiKey,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
