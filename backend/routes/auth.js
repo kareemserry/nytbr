@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
                 var user = data.user;
                 await firebase.firestore().collection('users').doc(user.uid).set({
                     discordID: '',
-                    email: user.email,
+                    favourites: [],
                 });
                 return res.json({ msg: "User Successfully logged in", data: data });
             })
