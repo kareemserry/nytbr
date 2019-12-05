@@ -8,7 +8,8 @@ const Urls = {
     backend: consts.envs.backendUrl
 };
 
-const backend = axios.create({ baseURL: backendUrl });
+const backend = axios.create({ baseURL: Urls.backend });
 
 module.exports = {
+    backend
 };

@@ -21,6 +21,8 @@ const handle = async (msg) => {
             await handlers.help(args2, msg.channel); break;
         case consts.prefixes.link:
             await handlers.linkProfile(msg); break;
+        case consts.prefixes.books:
+            await handlers.books(args2, msg.channel); break;
         default: await handlers.lost(msg.channel); break;
     }
 
