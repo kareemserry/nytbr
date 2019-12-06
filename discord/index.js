@@ -30,3 +30,7 @@ client.on('message', (msg) => {
 });
 
 client.login(token);
+
+module.exports = {
+    Discord
+}

@@ -5,7 +5,7 @@ const consts = require('../common/consts');
 const util = require('util');
 
 const Urls = {
-    backend: consts.envs.backendUrl
+    backend: consts.envs.backendUrl + ":" + consts.envs.backendPort
 };
 
 const backend = axios.create({ baseURL: Urls.backend });
