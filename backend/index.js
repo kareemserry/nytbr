@@ -4,8 +4,14 @@ const logger = require('../common/logger')(module.filename);
 const routes = require("./routes/index");
 const bodyParser = require("body-parser");
 const session = require('express-session');
+const cors = require("cors");
+
+
 express.json({ strict: true });
 const app = express();
+
+app.use(cors());
+
 
 app.use(session({
     secret: consts.envs.apiKey,
