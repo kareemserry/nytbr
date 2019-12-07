@@ -8,7 +8,7 @@ const profiles = {
 
 const prefixes = {
     help: 'help',
-    favorites: 'favorites',
+    favourites: 'favourites',
     link: 'link',
     books: 'books',
     info: 'info'
@@ -17,7 +17,7 @@ const prefixes = {
 const discordTheme = {
     lightColor: '#888888',
     darkColor: '#222222'
-}
+};
 
 const firebase = {
     errorMessage: {
@@ -25,7 +25,7 @@ const firebase = {
         invalidIdentifier: 'There is no user record corresponding to this identifier. The user may have been deleted.',
         duplicateEmail: 'The email address is already in use by another account.'
     }
-}
+};
 
 const ours = (msg) => {
     var msgPrefix = msg.content.split(' ')[0].toLowerCase();

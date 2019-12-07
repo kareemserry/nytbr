@@ -2,7 +2,8 @@ const logger = require('../../common/logger')(module.filename);
 const util = require('util');
 const consts = require('../../common/consts');
 const help = require('./help');
-const books = require('./books')
+const books = require('./books');
+const favourites = require('./favourites');
 
 const lost = async (channel) => {
     await channel.send(`????? Use: \`${consts.utils.ours.prefix} help\``);
@@ -23,5 +24,6 @@ module.exports = {
     help,
     lost,
     stats,
-    books
+    books,
+    favourites
 };

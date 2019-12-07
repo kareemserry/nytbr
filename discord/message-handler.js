@@ -23,6 +23,8 @@ const handle = async (msg, Discord) => {
             await handlers.linkProfile(msg); break;
         case consts.prefixes.books:
             await handlers.books(args2, msg.channel, Discord); break;
+        case consts.prefixes.favourites:
+            await handlers.favourites(args2, msg.author, msg.channel); break;
         default: await handlers.lost(msg.channel); break;
     }
 
