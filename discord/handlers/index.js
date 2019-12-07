@@ -2,9 +2,10 @@ const logger = require('../../common/logger')(module.filename);
 const util = require('util');
 const consts = require('../../common/consts');
 const help = require('./help');
+const books = require('./books')
 
 const lost = async (channel) => {
-    await channel.send(`????? Use: \`~${consts.utils.ours.prefix} help\``);
+    await channel.send(`????? Use: \`${consts.utils.ours.prefix} help\``);
     logger.info(`lost message sent at ${channel.type == 'dm' ? `DM : ${channel.recipient.username}` : `${channel.guild.name} : ${channel.name}`}`);
 };
 
@@ -22,4 +23,5 @@ module.exports = {
     help,
     lost,
     stats,
+    books
 };

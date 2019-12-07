@@ -10,9 +10,14 @@ const prefixes = {
     help: 'help',
     favorites: 'favorites',
     link: 'link',
-    top: 'top',
+    books: 'books',
     info: 'info'
 };
+
+const discordTheme = {
+    lightColor: '#888888',
+    darkColor: '#222222'
+}
 
 const firebase = {
     errorMessage: {
@@ -75,5 +80,6 @@ module.exports = {
     utils,
     envs,
     emoji,
-    firebase
+    firebase,
+    discordTheme
 };
