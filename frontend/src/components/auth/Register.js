@@ -8,8 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import axios from 'axios';
-import { registerUser } from '../../../api';
+import fetch from "node-fetch";
+import { backendUrl, env } from '../../api';
 
 export default class Register extends Component {
     constructor() {
@@ -31,21 +31,25 @@ export default class Register extends Component {
     async onSubmit(e) {
         e.preventDefault();
 
+        console.log(env);
         const newUser = {
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2
         };
-        await axios.post(registerUser, {
-            email: newUser.email,
-            password: newUser.password
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        const body = JSON.stringify(newUser);
+        const res = await fetch(`http://localhost:5000/users/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: body
+        });
+        const json = await res.json();
+        if (json.error) {
+            console.log(json.error);
+        } else {
+            console.log(json);
+        }
     }
 
 
