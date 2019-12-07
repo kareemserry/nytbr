@@ -5,8 +5,7 @@ const api = require('../api')
 const express = require("express");
 const util = require('util')
 const validator = require('../validations/books')
-
-
+const parseString = require('xml2js').parseString;
 const router = express.Router();
 
 router.use(express.json());
@@ -22,16 +21,6 @@ router.get('', async (req, res) => {
         return res.status(500).json({ error: 'Something went wrong!' })
     }
 })
-
-router.get('/fav', async (req, res) => {
-    const sessionUser = req.session.user
-    if (!sessionUser) return res.status(401).send()
-    const user = await firebase.firestore().collection('users').doc(sessionUser.uid).get()
-    if (!user) {
-        logger.warn(`user ${sessionUser.email} has no data!`)
-    }
-    return res.status(200).json(user.data().favourites);
-})
 router.get('/fav', async (req, res) => {
     const sessionUser = req.session.user
     if (!sessionUser) return res.status(401).send()
@@ -40,7 +29,16 @@ router.get('/fav', async (req, res) => {
         logger.err(`user ${sessionUser.email} has no data!`)
         return res.status(500).send()
     }
-    return res.status(200).json(user.data().favourites);
+
+    var favourites = [];
+    const isbns = user.data().favourites
+
+    for (const q of isbns) {
+        const data = (await api.googleBooks.get('volumes', { params: { q: `isbn:${q}` } })).data
+        if (!data) { logger.warn(`no data found for isbn: ${q}`); continue }
+        favourites.push(data)
+    };
+    return res.status(200).json(favourites);
 })
 router.post('/fav', async (req, res) => {
     const sessionUser = req.session.user
@@ -56,9 +54,13 @@ router.post('/fav', async (req, res) => {
         logger.err(`user ${sessionUser.email} has no data!`)
         return res.status(500).send()
     }
-    const newFavs = user.data().favourites;
+    var newFavs = user.data().favourites;
+    if (!newFavs) newFavs = []
     if (!newFavs.includes(req.body.isbn))
         newFavs.push(req.body.isbn)
+    else
+        return res.status(409).json({ error: "book already a favourite" })
+
     try {
         await firebase.firestore().collection('users')
             .doc(sessionUser.uid).set(
