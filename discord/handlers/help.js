@@ -5,7 +5,9 @@ const util = require('util');
 const helpMessage = '>>>' +
     ' `!nytbr help`\n\tReturns list of available NYT\'s Bestreads commands' + '\n\n' +
     ' `!nytbr help <command>`\n\tReturns detailed discription of command' + '\n\n' +
-    ' `!nytbr books`\n\tReturns best selling books'
+    ' `!nytbr books`\n\tReturns best selling books' + '\n\n' +
+    ' `!nytbr link`\n\tLets you link your discord account to your NYTBR account' + '\n\n' +
+    ' `!nytbr favourites`\n\tGets your favourite books. Requires a linked account';
 
 
 // ~ts help || ~ts help <command>
@@ -23,7 +25,8 @@ const helpMap =
     other: '>>> <command> is not a valid command.',
     link: '>>> `!nytbr link`\n\tclick the provided link to connect your accounts\n' +
         '\t\tExample: *!nytbr link*',
-    books: '>>> `!nytbr books`\n\treturns top 30 fiction and non-fiction current best selling books'
+    books: '>>> `!nytbr books`\n\treturns top 30 fiction and non-fiction current best selling books',
+    favourites: '>>> `!nytbr favourites`\n\treturn your favourite books.'
 }
 
 const getHelpMessage = (command) => {
