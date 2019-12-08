@@ -8,10 +8,15 @@ const profiles = {
 
 const prefixes = {
     help: 'help',
-    favorites: 'favorites',
+    favourites: 'favourites',
     link: 'link',
-    top: 'top',
+    books: 'books',
     info: 'info'
+};
+
+const discordTheme = {
+    lightColor: '#888888',
+    darkColor: '#222222'
 };
 
 const firebase = {
@@ -20,7 +25,7 @@ const firebase = {
         invalidIdentifier: 'There is no user record corresponding to this identifier. The user may have been deleted.',
         duplicateEmail: 'The email address is already in use by another account.'
     }
-}
+};
 
 const ours = (msg) => {
     var msgPrefix = msg.content.split(' ')[0].toLowerCase();
@@ -49,7 +54,11 @@ var envs = {
     messagingSenderId: env.NYTBR_FIREBASE_MESSAGING_SENDER_ID,
     appId: env.NYTBR_FIREBASE_APP_ID,
     //nyt
-    nytKey: env.NYTBR_NYT_API_KEY
+    nytKey: env.NYTBR_NYT_API_KEY,
+    //goodreads
+    goodreadsKey: env.NYTBR_GOODREADS_API_KEY,
+    //google books
+    googleBooksKey: env.NYTBR_GOOGLE_API_KEY
 };
 
 const isDev = () => {
@@ -75,5 +84,6 @@ module.exports = {
     utils,
     envs,
     emoji,
-    firebase
+    firebase,
+    discordTheme
 };
