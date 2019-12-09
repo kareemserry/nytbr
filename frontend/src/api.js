@@ -1,5 +1,5 @@
-const backendUrl = `http://localhost:5000`;
+const backendUrl = `http://localhost:8080`;
 
 module.exports = {
-    backendUrl,
+  backendUrl
 };

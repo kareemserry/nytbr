@@ -8,6 +8,7 @@ import Regular from "./components/books/Regular";
 import Favourite from "./components/books/Favourite";
 import Books from "./components/books/Books";
 import Favourites from "./components/books/Favourites";
+import LinkDiscord from "./components/auth/LinkDiscord.js";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         path="/wip/favourite"
         render={props => <Favourite {...props} book={tempFavourite} />}
       />
+      <Route exact path="/linkDiscord/:id" component={LinkDiscord} />
       <Route exact path="/" component={Books} />
       <Route exact path="/favourites" component={Favourites} />
       <Footer />
