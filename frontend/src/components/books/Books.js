@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { GridList, GridListTile, Container } from '@material-ui/core';
 import Regular from './Regular';
 import Spinner from '../common/Spinner'
+import { backendUrl } from '../../api';
 
 export default class Books extends Component {
     constructor() {
@@ -12,7 +13,7 @@ export default class Books extends Component {
         };
     }
     getBooks = async () => {
-        const res = await fetch(`http://localhost:5000/books/`, {
+        const res = await fetch(`${backendUrl}/books/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

@@ -84,7 +84,7 @@ export default class Register extends Component {
         this.validateData();
         if (this.state.emailError === '' && this.state.passwordError === '') {
             const body = JSON.stringify(newUser);
-            const res = await fetch(`http://localhost:5000/users/register`, {
+            const res = await fetch(`${backendUrl}/users/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
