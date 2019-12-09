@@ -103,7 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-backend/package-lock.json
-frontend/package-lock.json
-common/package-lock.json
-discord/package-lock.json
+docker-compose.yml
+
