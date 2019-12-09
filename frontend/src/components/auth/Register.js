@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import fetch from "node-fetch";
 import { backendUrl, env } from '../../api';
+import { runInThisContext } from 'vm';
 
 export default class Register extends Component {
     constructor() {
@@ -18,7 +19,8 @@ export default class Register extends Component {
             email: "",
             password: "",
             password2: "",
-            errors: {}
+            emailError: "",
+            passwordError: "",
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -26,6 +28,48 @@ export default class Register extends Component {
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
+    }
+
+    validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+    validateData = () => {
+        console.log(this.state.confirmPasswordError);
+        if (this.state.email === '') {
+            this.setState({
+                emailError: 'empty'
+            })
+        }
+        else {
+            if (!this.validateEmail(this.state.email)) {
+                this.setState({
+                    emailError: 'invalid'
+                })
+            }
+            else {
+                this.setState({
+                    emailError: ''
+                })
+            }
+        }
+        if (this.state.password === '') {
+            this.setState({
+                passwordError: 'empty'
+            })
+        }
+        else {
+            if (this.state.password.length < 6) {
+                this.setState({
+                    passwordError: 'less'
+                })
+            }
+            else {
+                this.setState({
+                    passwordError: ''
+                })
+            }
+        }
     }
 
     async onSubmit(e) {
@@ -36,19 +80,27 @@ export default class Register extends Component {
             email: this.state.email,
             password: this.state.password,
         };
-        const body = JSON.stringify(newUser);
-        const res = await fetch(`http://localhost:5000/users/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        });
-        const json = await res.json();
-        if (json.error) {
-            console.log(json.error);
-        } else {
-            console.log(json);
+
+        this.validateData();
+        if (this.state.emailError === '' && this.state.passwordError === '') {
+            const body = JSON.stringify(newUser);
+            const res = await fetch(`http://localhost:5000/users/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: body
+            });
+            const json = await res.json();
+            if (json.error) {
+                if (res.status == 409) {
+                    this.setState({
+                        emailError: 'used'
+                    })
+                }
+            } else {
+                this.props.history.push("/login");
+            }
         }
     }
 
@@ -78,6 +130,10 @@ export default class Register extends Component {
                                     required
                                     fullWidth
                                     id="email"
+                                    error={this.state.emailError !== ""}
+                                    helperText={this.state.emailError === "empty" ?
+                                        "Email Can't be Empty!" : this.state.emailError === "invalid" ?
+                                            'Invalid Email!' : this.state.emailError === 'used' ? 'Email Already Used' : ''}
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
@@ -94,22 +150,12 @@ export default class Register extends Component {
                                     label="Password"
                                     type="password"
                                     id="password"
+                                    error={this.state.passwordError !== ""}
+                                    helperText={this.state.passwordError === "empty" ?
+                                        "Password Can't be Empty!" : this.state.passwordError === "less" ?
+                                            'Password must be 6 characters at least!' : ''}
                                     autoComplete="current-password"
                                     value={this.state.password}
-                                    onChange={this.onChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="password2"
-                                    label="Confirm Password"
-                                    type="password"
-                                    id="password2"
-                                    autoComplete="confirm-password"
-                                    value={this.state.password2}
                                     onChange={this.onChange}
                                 />
                             </Grid>
