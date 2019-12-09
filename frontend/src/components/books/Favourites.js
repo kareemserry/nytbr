@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Spinner from "../common/Spinner";
 import { GridList } from "@material-ui/core";
 import Favourite from "./Favourite";
+import { backendUrl } from '../../api';
 
 export default class Favourites extends Component {
     constructor() {
@@ -12,7 +13,7 @@ export default class Favourites extends Component {
         };
     }
     getFavourites = async () => {
-        const res = await fetch(`http://localhost:5000/books/fav/`, {
+        const res = await fetch(`${backendUrl}/books/fav/`, {
             credentials: "include",
             method: "GET",
             headers: {
