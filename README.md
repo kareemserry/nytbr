@@ -50,7 +50,7 @@ config.json file exists in nytbr/frontend/src
    "backendUrl": 
 }
 ````
-
+this value should reflect the value of the full path to the backend server. When running through the docker images or docker-compose this should reflect the path to the external url not the internal one.
 
 
 ### Variables you should add to your Enviroment
@@ -129,7 +129,26 @@ cd frontend
 npm start
 
 ```
+# Docker
+## Build
+to build the images run these commands
+```bash
+docker build -t backend -f ./backend/Dockerfile .
+docker build -t discord -f ./discord/Dockerfile .
+docker built -t frontend ./frontend
+```
+## Run
+to run these images simply
+```bash
+docker run backend -env env_variable_name=env_variable_value
+docker run discord -env env_variable_name=env_variable_value
+docker run frontend
+```
+you will also need to add the -p option that specifies what ports to bridge from the vm to the image
+## Docker Compose
+the docker-compse.yml handles all the runtime config needed for the running of the images simply type
+```bash
+docker-compose build
+docker-compose up
+```
 
-## Simple build for production
-
-    $ yarn build
