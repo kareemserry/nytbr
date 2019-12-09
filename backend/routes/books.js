@@ -24,6 +24,7 @@ router.get('', async (req, res) => {
 });
 router.get('/fav', async (req, res) => {
     const sessionUser = req.session.user;
+    console.log(req.session);
     if (!sessionUser) return res.status(401).send();
     const user = await firebase.firestore().collection('users').doc(sessionUser.uid).get();
     if (!user) {
