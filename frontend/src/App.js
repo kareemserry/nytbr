@@ -12,7 +12,6 @@ import Favourites from "./components/books/Favourites";
 function App() {
   return (
     <Router>
-      <Navbar />
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
       <Route
@@ -27,7 +26,6 @@ function App() {
       />
       <Route exact path="/" component={Books} />
       <Route exact path="/favourites" component={Favourites} />
-      <Footer />
     </Router>
   );
 }

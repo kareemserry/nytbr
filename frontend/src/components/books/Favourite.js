@@ -10,6 +10,8 @@ import IconButton from "@material-ui/core/IconButton";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import { backendUrl } from '../../api';
+import Footer from "../common/Footer";
+import Navbar from "../common/Navbar";
 
 const MyCard = styled(Card)({
   maxWidth: 345
