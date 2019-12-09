@@ -22,6 +22,30 @@ export default class Favourite extends Component {
     super();
   }
 
+  removeFromFavourites = async () => {
+    const favourites = {
+      isbn: this.props.book.industryIdentifiers[1].identifier,
+    };
+    const body = JSON.stringify(favourites);
+    const res = await fetch(`http://localhost:5000/books/fav/`, {
+      credentials: 'include',
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body
+    });
+    if (res.status === 400) {
+      var json = await res.json();
+      console.log(json);
+    } else {
+
+    }
+  }
+  onClick() {
+    this.removeFromFavourites();
+  }
+
   render() {
     const book = this.props.book;
     return (
@@ -68,7 +92,7 @@ export default class Favourite extends Component {
         <IconButton
           aria-label="favourite"
           onClick={event => {
-            console.log("todo: remove from favourites");
+            this.removeFromFavourites();
           }}
         >
           <Delete />

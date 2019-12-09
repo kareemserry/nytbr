@@ -22,6 +22,32 @@ export default class Regular extends Component {
     super();
   }
 
+
+  addToFavourites = async () => {
+    const favourites = {
+      isbn: this.props.book.isbns[0].isbn13,
+    };
+    const body = JSON.stringify(favourites);
+    const res = await fetch(`http://localhost:5000/books/fav`, {
+      credentials: 'include',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body
+    });
+    if (res.status === 400) {
+      var json = await res.json();
+      console.log(json);
+    } else {
+
+    }
+  }
+
+  onClick() {
+    this.addToFavourites();
+  }
+
   render() {
     const book = this.props.book;
     return (
@@ -69,7 +95,7 @@ export default class Regular extends Component {
         <IconButton
           aria-label="favourite"
           onClick={event => {
-            console.log("todo: add to favourites");
+            this.onClick();
           }}
         >
           <Favorite />
