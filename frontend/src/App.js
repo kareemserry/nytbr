@@ -13,13 +13,11 @@ import LinkDiscord from "./components/auth/LinkDiscord.js";
 function App() {
   return (
     <Router>
-      <Navbar />
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/linkDiscord/:id" component={LinkDiscord} />
       <Route exact path="/" component={Books} />
       <Route exact path="/favourites" component={Favourites} />
-      <Footer />
     </Router>
   );
 }
