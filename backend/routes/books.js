@@ -30,7 +30,7 @@ router.get("/fav", async (req, res) => {
     .doc(sessionUser.uid)
     .get();
   if (!user) {
-    logger.err(`user ${sessionUser.email} has no data!`);
+    logger.error(`user ${sessionUser.email} has no data!`);
     return res.status(500).send();
   }
 
@@ -48,7 +48,7 @@ router.get("/fav", async (req, res) => {
     try {
       favourites.push(data.items[0].volumeInfo);
     } catch (err) {
-      logger.err(err);
+      logger.error(err);
     }
   }
   return res.status(200).json(favourites);
@@ -68,7 +68,7 @@ router.post("/fav", async (req, res) => {
     .doc(sessionUser.uid)
     .get();
   if (!user) {
-    logger.err(`user ${sessionUser.email} has no data!`);
+    logger.error(`user ${sessionUser.email} has no data!`);
     return res.status(500).send();
   }
   var newFavs = user.data().favourites;
@@ -104,7 +104,7 @@ router.delete("/fav", async (req, res) => {
     .doc(sessionUser.uid)
     .get();
   if (!user) {
-    logger.err(`user ${sessionUser.email} has no data!`);
+    logger.error(`user ${sessionUser.email} has no data!`);
     return res.status(500).send();
   }
   const newFavs = user.data().favourites;
