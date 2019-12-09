@@ -10,7 +10,6 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import Cookies from "js-cookie";
 
 export default class Login extends Component {
   constructor() {
@@ -39,7 +38,7 @@ export default class Login extends Component {
       password: this.state.password
     };
     const body = JSON.stringify(newUser);
-    const res = await fetch(`http://localhost:8080/users/login`, {
+    const res = await fetch(`http://localhost:5000/users/login`, {
       credentials: "include",
       method: "POST",
       headers: {
