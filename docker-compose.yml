@@ -4,15 +4,13 @@ services:
     environment:
       - NYTBR_BACKEND_PORT
       - NYTBR_BACKEND_URL=https://0.0.0.0
-      - NYTBR_FIREBASE_API_ID
+      - NYTBR_FIREBASE_APP_ID
       - NYTBR_FIREBASE_API_KEY
       - NYTBR_FIREBASE_AUTH_DOMAIN
       - NYTBR_FIREBASE_DATABASE_URL
       - NYTBR_FIREBASE_MESSAGING_SENDER_ID
       - NYTBR_FIREBASE_PROJECT_ID
       - NYTBR_FIREBASE_STORAGE_BUCKET
-      - NYTBR_GOODREADS_API_KEY
-      - NYTBR_GOOGLE_API_KEY
       - NYTBR_NYT_API_KEY
       - NYTBR_SECRET
     build:
@@ -30,3 +28,10 @@ services:
     build:
       context: .
       dockerfile: ./discord/Dockerfile
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - "/app/node_modules"
+    ports:
+      - "3001:3000"
