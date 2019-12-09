@@ -47,6 +47,7 @@ export default class Login extends Component {
       console.log(json.error);
     } else {
       console.log(json);
+      this.props.history.push();
     }
   }
   render() {
