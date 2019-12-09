@@ -11,6 +11,8 @@ import Container from "@material-ui/core/Container";
 import fetch from "node-fetch";
 import { backendUrl, env } from "../../api";
 import { runInThisContext } from "vm";
+import Navbar from "../common/Navbar";
+import Footer from "../common/Footer";
 
 export default class Register extends Component {
   constructor() {
@@ -102,90 +104,97 @@ export default class Register extends Component {
 
   render() {
     return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginTop: "8"
-          }}
-        >
-          <Avatar className="mb-2" style={{ backgroundColor: "rgb(52,58,64)" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5" className="mb-3">
-            Sign up
-          </Typography>
-          <form style={{ width: "100%", marginTop: "3" }} noValidate>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  error={this.state.emailError !== ""}
-                  helperText={
-                    this.state.emailError === "empty"
-                      ? "Email Can't be Empty!"
-                      : this.state.emailError === "invalid"
-                      ? "Invalid Email!"
-                      : this.state.emailError === "used"
-                      ? "Email Already Used"
-                      : ""
-                  }
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  error={this.state.passwordError !== ""}
-                  helperText={
-                    this.state.passwordError === "empty"
-                      ? "Password Can't be Empty!"
-                      : this.state.passwordError === "less"
-                      ? "Password must be 6 characters at least!"
-                      : ""
-                  }
-                  autoComplete="current-password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              onClick={this.onSubmit}
-              className="mt-3"
+      <div>
+        <Navbar />
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginTop: "8"
+            }}
+          >
+            <Avatar
+              className="mb-2"
+              style={{ backgroundColor: "rgb(52,58,64)" }}
             >
-              Sign Up
-            </Button>
-            <Grid container justify="center" className="mt-3">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5" className="mb-3">
+              Sign up
+            </Typography>
+            <form style={{ width: "100%", marginTop: "3" }} noValidate>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    error={this.state.emailError !== ""}
+                    helperText={
+                      this.state.emailError === "empty"
+                        ? "Email Can't be Empty!"
+                        : this.state.emailError === "invalid"
+                        ? "Invalid Email!"
+                        : this.state.emailError === "used"
+                        ? "Email Already Used"
+                        : ""
+                    }
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    error={this.state.passwordError !== ""}
+                    helperText={
+                      this.state.passwordError === "empty"
+                        ? "Password Can't be Empty!"
+                        : this.state.passwordError === "less"
+                        ? "Password must be 6 characters at least!"
+                        : ""
+                    }
+                    autoComplete="current-password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </div>
-      </Container>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={this.onSubmit}
+                className="mt-3"
+              >
+                Sign Up
+              </Button>
+              <Grid container justify="center" className="mt-3">
+                <Grid item>
+                  <Link href="/login" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+        </Container>
+        <Footer />
+      </div>
     );
   }
 }

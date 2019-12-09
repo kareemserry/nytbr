@@ -7,6 +7,7 @@ const profiles = {
 };
 
 const prefixes = {
+<<<<<<< HEAD
   help: "help",
   favourites: "favourites",
   link: "link",
@@ -17,6 +18,18 @@ const prefixes = {
 const discordTheme = {
   lightColor: "#888888",
   darkColor: "#222222"
+=======
+    help: 'help',
+    favourites: 'favourites',
+    link: 'link',
+    books: 'books',
+    info: 'info'
+>>>>>>> develop
+};
+
+const discordTheme = {
+    lightColor: '#888888',
+    darkColor: '#222222'
 };
 
 const firebase = {
