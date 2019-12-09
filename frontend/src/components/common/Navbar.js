@@ -20,13 +20,13 @@ export default function Navbar() {
                 <div className="collapse navbar-collapse" id="mobile-nav">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">
+                            <Link className="nav-link" to="/">
                                 {" "}
                                 BOOKS
                 </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">
+                            <Link className="nav-link" to="/favourites">
                                 {" "}
                                 FAVOURITES
                 </Link>

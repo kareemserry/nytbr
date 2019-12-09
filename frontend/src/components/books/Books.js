@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { GridList, GridListTile, Container } from '@material-ui/core';
 import Regular from './Regular';
+import Spinner from '../common/Spinner'
 
 export default class Books extends Component {
     constructor() {
@@ -33,7 +34,7 @@ export default class Books extends Component {
     }
     render() {
         return (
-            <div>
+            this.state.fiction.length > 0 ? <div>
                 {this.state.fiction.length > 0 ? <h3 style={{ textAlign: 'center' }}>FICTION</h3> : <div />}
                 <GridList className="mt-5 mb-5" style={{ justifyContent: 'center' }}>
                     {this.state.fiction.map((book, index) => (
@@ -46,7 +47,7 @@ export default class Books extends Component {
                         <Regular key={index} book={book} />
                     ))}
                 </GridList>
-            </div>
+            </div> : <Spinner />
 
         )
     }
