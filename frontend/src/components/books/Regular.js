@@ -9,6 +9,7 @@ import Favorite from "@material-ui/icons/Favorite";
 import IconButton from "@material-ui/core/IconButton";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
+import { backendUrl } from '../../api';
 
 const MyCard = styled(Card)({
   maxWidth: 345
@@ -22,10 +23,36 @@ export default class Regular extends Component {
     super();
   }
 
+
+  addToFavourites = async () => {
+    const favourites = {
+      isbn: this.props.book.isbns[0].isbn13,
+    };
+    const body = JSON.stringify(favourites);
+    const res = await fetch(`${backendUrl}/books/fav`, {
+      credentials: 'include',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body
+    });
+    if (res.status === 400) {
+      var json = await res.json();
+      console.log(json);
+    } else {
+
+    }
+  }
+
+  onClick() {
+    this.addToFavourites();
+  }
+
   render() {
     const book = this.props.book;
     return (
-      <MyCard>
+      <MyCard style={{ padding: 5 }}>
         <CardActionArea
           onClick={event => {
             window.location.href = book.amazon_product_url;
@@ -69,7 +96,7 @@ export default class Regular extends Component {
         <IconButton
           aria-label="favourite"
           onClick={event => {
-            console.log("todo: add to favourites");
+            this.onClick();
           }}
         >
           <Favorite />

@@ -6,11 +6,12 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Regular from "./components/books/Regular";
 import Favourite from "./components/books/Favourite";
+import Books from "./components/books/Books";
+import Favourites from "./components/books/Favourites";
 
 function App() {
   return (
     <Router>
-      <Navbar />
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
       <Route
@@ -23,7 +24,8 @@ function App() {
         path="/wip/favourite"
         render={props => <Favourite {...props} book={tempFavourite} />}
       />
-      <Footer />
+      <Route exact path="/" component={Books} />
+      <Route exact path="/favourites" component={Favourites} />
     </Router>
   );
 }

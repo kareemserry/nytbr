@@ -9,6 +9,9 @@ import Delete from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
+import { backendUrl } from '../../api';
+import Footer from "../common/Footer";
+import Navbar from "../common/Navbar";
 
 const MyCard = styled(Card)({
   maxWidth: 345
@@ -22,10 +25,33 @@ export default class Favourite extends Component {
     super();
   }
 
+  removeFromFavourites = async () => {
+    const favourites = {
+      isbn: this.props.book.industryIdentifiers[1].identifier,
+    };
+    const body = JSON.stringify(favourites);
+    const res = await fetch(`${backendUrl}/books/fav/`, {
+      credentials: 'include',
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body
+    });
+    if (res.status === 400) {
+      var json = await res.json();
+      console.log(json);
+    } else {
+    }
+  }
+  onClick() {
+    this.removeFromFavourites();
+  }
+
   render() {
     const book = this.props.book;
     return (
-      <MyCard>
+      <MyCard style={{ padding: 5 }}>
         <CardActionArea
           onClick={event => {
             window.location.href = book.previewLink;
@@ -68,7 +94,7 @@ export default class Favourite extends Component {
         <IconButton
           aria-label="favourite"
           onClick={event => {
-            console.log("todo: remove from favourites");
+            this.removeFromFavourites();
           }}
         >
           <Delete />

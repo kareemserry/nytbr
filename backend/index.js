@@ -9,7 +9,25 @@ const cors = require("cors");
 express.json({ strict: true });
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+app.options(
+  "*",
+  cors({
+    origin: function(origin, callback) {
+      return callback(null, true);
+    },
+    credentials: true
+  })
+);
+
+app.use(
+  cors({
+    origin: function(origin, callback) {
+      return callback(null, true);
+    },
+    credentials: true
+  })
+);
 
 app.use(
   session({
@@ -35,6 +53,10 @@ app.listen(
   consts.envs.backendPort,
   consts.envs.backendUrl.split("/")[1],
   () => {
-    logger.info(`Server up and running on  ${consts.envs.backendUrl.split("/")[1]}:${consts.envs.backendPort}`);
+    logger.info(
+      `Server up and running on  ${consts.envs.backendUrl.split("/")[1]}:${
+        consts.envs.backendPort
+      }`
+    );
   }
 );

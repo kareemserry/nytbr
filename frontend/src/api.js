@@ -1,7 +1,4 @@
-
-const env = process.env;
-
-const backendUrl = `${env.NYTBR_BACKEND_URL}`
+const backendUrl = `http://localhost:5000`;
 
 module.exports = {
     backendUrl,
