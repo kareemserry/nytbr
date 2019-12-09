@@ -42,6 +42,17 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
 
 ---
 
+### Config File
+config.json file exists in nytbr/frontend/src
+
+````json
+{
+   "backendUrl": 
+}
+````
+
+
+
 ### Variables you should add to your Enviroment
 
 ```json
