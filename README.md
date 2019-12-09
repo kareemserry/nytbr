@@ -64,128 +64,19 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
 ### Adding Variables to your Environment
 #### 1. On Windows
 
+```
 1-Right-click the Computer icon and choose Properties, or in Windows Control Panel, choose System.
 2-Choose Advanced system settings.
 3-On the Advanced tab, click Environment Variables.
 4-Click New to create a new environment variable. Click Edit to modify an existing environment variable.
+```
 
 #### 2. On Unix
+
+```
 1-sudo -H gedit /etc/environment
 2-VARNAME="my value"
-
-
-### Adding Variables to your Environment
-
-There are 3 ways to add variables to the environment where your app is running.
-
-#### 1. Command-Line Arguments
-
-When you run your node program/app you can include settings as environment variables
-for example, try running the following:
-
-```sh
-PORT=5000 node printenv.js
 ```
-Notice how the PORT variable is the *first element* displayed in the console?
-You are now able to access the `PORT` value in your node.js script
-by reference: `process.env.PORT`
-
-including your config in the command you use to run your script/app gets
-cumursome when you have lots of API Keys or Databases ...
-
-#### 2. Export the Variable to your Environment
-
-An improvement on this command-line arguments is to export the variable
-in your terminal:
-
-Type/paste this in your terminal window and tap enter:
-```sh
-export HELLO=WORLD
-```
-Now `printenv` or `node printenv.js` to see it printed!
-the `HELLO` key is now available in the `process.env` object
-try adding the following line to your `printenv.js` file:
-
-```js
-console.log(">> Hello", process.env.HELLO);
-```
-Now run it in your terminal:
-```sh
-node printenv.js
-```
-What do you see?
-
-```sh
->> Hello WORLD
-```
-
-Exporting your keys to your environment using `export MY_VAR=HAI` works
-but if you use a terminal that does not *save* your variables across sessions,
-(e.g. if you close your terminal window!) you will have to keep exporting them!
-
-Thankfully there's a ***3rd*** (*easier*) ***way***: https://github.com/dwyl/env2
-
-#### 3. Use a `.env` file *locally* which you can `.gitignore`
-
-The way we prefer to manage our Environment Variables on our development machines
-is using a `.env` file which gets loaded into our app *once* and
-adds any entries in the `.env` file to the `process.env` (*global object*).
-
-We wrote the [**env2**](https://github.com/dwyl/env2)
-***node.js module*** to load configuration from a `.env` or
-`.json` file.
-
-Loading your environment variables from a `.env` file is as easy as "ABC"!
-
-##### A. Create your `.env` file
-
-Create a `.env` file in the root of your project and insert
-your key/value pairs in the following format of `KEY=VALUE`:
-
-```sh
-DB_HOST=127.0.0.1
-DB_PORT=9200
-DB_USER=TheSpecial
-DB_PASS=EverythingIsAwesome
-```
-
-##### B. Install `env2` and save it to your `package.json`
-
-Install the [**env2**](https://github.com/dwyl/env2)
-module from NPM and save it as a Dependency in your
-`package.json` file:
-
-```sh
-npm install env2 --save
-```
-
-##### C. Invoke `env2` and use the variable in your script
-
-Loading your configuration is a 1-line call to node.js's `require` method
-which loads [**env2**](https://github.com/dwyl/env2) and invokes it with
-your `.env` file as the argument:
-
-```js
-require('env2')('.env');    // loads all entries into process.env
-
-console.log(process.env.DB_HOST); // "127.0.0.1"
-```
-
-Now you can access any of the entries in your `.env` file as a key
-in the `process.env` Object e.g: `process.env.PORT` is `9200` (in our example above).
-
-
-##### D. Add `.env` to your `.gitignore` file!
-
-```sh
-echo .env >> .gitignore
-```
-
-This ensures that the `.env` is not "tracked" in .git and thus
-will not be public on GitHub. i.e only visible on your local machine.  
-If you are new/rusty on using `.gitignore` file to omit files/folders
-from your Git/GitHub repo read: http://git-scm.com/docs/gitignore
-
 
 ## Installing
 
@@ -206,9 +97,18 @@ npm install
 
 ```bash
 cd backend
-npm run server
+node index.js
 
 ```
+
+### Start the Discord Server
+
+```bash
+cd discord
+node index.js
+
+```
+
 ### Start Create React App
 
 In a different terminal tab...
