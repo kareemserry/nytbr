@@ -45,7 +45,11 @@ router.get("/fav", async (req, res) => {
       logger.warn(`no data found for isbn: ${q}`);
       continue;
     }
-    favourites.push(data.items[0].volumeInfo);
+    try {
+      favourites.push(data.items[0].volumeInfo);
+    } catch (err) {
+      logger.err(err);
+    }
   }
   return res.status(200).json(favourites);
 });
