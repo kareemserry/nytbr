@@ -7,7 +7,7 @@ winston.level = consts.utils.isDev() ? 'silly' : consts.envs.logLevel;
 
 const logger = (moduleName) => {
 
-    var basename = path.relative(process.mainModule.filename.replace(`app${path.sep}index.js`, ''), moduleName);
+    var basename = path.relative(process.mainModule.filename + `${path.sep}..${path.sep}..`, moduleName);
     var padding = '';
     while (basename.length + padding.length < 30) {
         padding += ' ';
