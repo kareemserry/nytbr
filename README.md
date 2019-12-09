@@ -140,11 +140,13 @@ docker built -t frontend ./frontend
 ## Run
 to run these images simply
 ```bash
-docker run backend -env env_variable_name=env_variable_value
-docker run discord -env env_variable_name=env_variable_value
+docker run backend
+docker run discord
 docker run frontend
 ```
-you will also need to add the -p option that specifies what ports to bridge from the vm to the image
+Options 
+-p use this option to specifiy what ports to bridge from the image to the outside world
+-env use this option to pass all the required env variables to the image
 ## Docker Compose
 the docker-compse.yml handles all the runtime config needed for the running of the images simply type
 ```bash
