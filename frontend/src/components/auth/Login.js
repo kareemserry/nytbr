@@ -11,6 +11,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { backendUrl } from '../../api';
+import Navbar from "../common/Navbar";
+import Footer from "../common/Footer";
 
 export default class Login extends Component {
   constructor() {
@@ -18,7 +20,7 @@ export default class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      error: ""
+      error: "",
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -55,91 +57,96 @@ export default class Login extends Component {
         error: "invalid"
       });
     } else {
+      localStorage.setItem('user', newUser.email)
       console.log(json);
-      this.props.history.push();
+      this.props.history.push('/');
     }
   }
   render() {
     return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div
-          style={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
-          }}
-        >
-          <Avatar style={{ backgroundColor: "rgb(52,58,64)" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
+      <div >
+        <Navbar />
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div
+            style={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}
+          >
+            <Avatar style={{ backgroundColor: "rgb(52,58,64)" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
           </Typography>
-          <form style={{ width: "100%", marginTop: "1" }} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              error={this.state.error !== ""}
-              helperText={
-                this.state.error === "invalid" ? "Invalid Credentials" : ""
-              }
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={this.state.email}
-              onChange={this.onChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              error={this.state.error !== ""}
-              helperText={
-                this.state.error === "invalid" ? "Invalid Credentials" : ""
-              }
-              autoComplete="current-password"
-              value={this.state.password}
-              onChange={this.onChange}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              onClick={this.onSubmit}
-            >
-              Sign In
+            <form style={{ width: "100%", marginTop: "1" }} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                error={this.state.error !== ""}
+                helperText={
+                  this.state.error === "invalid" ? "Invalid Credentials" : ""
+                }
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={this.state.email}
+                onChange={this.onChange}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                error={this.state.error !== ""}
+                helperText={
+                  this.state.error === "invalid" ? "Invalid Credentials" : ""
+                }
+                autoComplete="current-password"
+                value={this.state.password}
+                onChange={this.onChange}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={this.onSubmit}
+              >
+                Sign In
             </Button>
-            <Grid container className="mt-2">
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+              <Grid container className="mt-2">
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
                 </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="/register" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-      </Container>
+            </form>
+          </div>
+        </Container>
+        <Footer />
+      </div >
     );
   }
 }

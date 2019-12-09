@@ -3,6 +3,8 @@ import Spinner from "../common/Spinner";
 import { GridList } from "@material-ui/core";
 import Favourite from "./Favourite";
 import { backendUrl } from '../../api';
+import Navbar from "../common/Navbar";
+import Footer from "../common/Footer";
 
 export default class Favourites extends Component {
     constructor() {
@@ -22,8 +24,7 @@ export default class Favourites extends Component {
         });
         console.log(res);
         if (res.status === 401) {
-            // this.props.history.push('/');
-            console.log(401);
+            this.props.history.push('/login');
         } else {
             res.json().then(json => {
                 this.setState({
@@ -37,21 +38,25 @@ export default class Favourites extends Component {
         this.getFavourites();
     }
     render() {
-        return this.state.books != null ? (
-            <div>
-                {this.state.books.length > 0 ? (
-                    <h3 style={{ textAlign: "center" }}>FAVOURITES</h3>
-                ) : (
-                        <div />
-                    )}
-                <GridList className="mt-5 mb-5" style={{ justifyContent: "center" }}>
-                    {this.state.books.map((book, index) => (
-                        <Favourite key={index} book={book} />
-                    ))}
-                </GridList>
-            </div>
-        ) : (
-                <Spinner />
-            );
+        return (<div>
+            <Navbar />
+            {this.state.books != null ? (
+                <div>
+                    {this.state.books.length > 0 ? (
+                        <h3 style={{ textAlign: "center" }}>FAVOURITES</h3>
+                    ) : (
+                            <div />
+                        )}
+                    <GridList className="mt-5 mb-5" style={{ justifyContent: "center" }}>
+                        {this.state.books.map((book, index) => (
+                            <Favourite key={index} book={book} />
+                        ))}
+                    </GridList>
+                </div>
+            ) : (
+                    <Spinner />)}
+            <Footer />
+        </div>
+        );
     }
 }
