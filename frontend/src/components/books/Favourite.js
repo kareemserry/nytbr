@@ -25,7 +25,7 @@ export default class Favourite extends Component {
   render() {
     const book = this.props.book;
     return (
-      <MyCard>
+      <MyCard style={{ padding: 5 }}>
         <CardActionArea
           onClick={event => {
             window.location.href = book.previewLink;

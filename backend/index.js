@@ -10,8 +10,20 @@ const cors = require("cors");
 express.json({ strict: true });
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+app.options('*', cors({
+    origin: function (origin, callback) {
+        return callback(null, true);
+    },
+    credentials: true
+}))
 
+app.use(cors({
+    origin: function (origin, callback) {
+        return callback(null, true);
+    },
+    credentials: true
+}));
 
 app.use(session({
     secret: consts.envs.apiKey,
