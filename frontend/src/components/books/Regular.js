@@ -25,7 +25,7 @@ export default class Regular extends Component {
   render() {
     const book = this.props.book;
     return (
-      <MyCard>
+      <MyCard style={{ padding: 5 }}>
         <CardActionArea
           onClick={event => {
             window.location.href = book.amazon_product_url;
