@@ -26,6 +26,7 @@ services:
       - NYTBR_BACKEND_URL=http://backend
       - NYTBR_SECRET
       - NYTBR_DISCORD_TOKEN
+      - NYTBR_FRONTEND_URL
     build:
       context: .
       dockerfile: ./discord/Dockerfile
