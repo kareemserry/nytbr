@@ -17,7 +17,7 @@ export default class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      errors: {}
+      error: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -30,6 +30,9 @@ export default class Login extends Component {
   async onSubmit(e) {
     e.preventDefault();
 
+    this.setState({
+      error: ""
+    });
     const newUser = {
       email: this.state.email,
       password: this.state.password
@@ -44,7 +47,9 @@ export default class Login extends Component {
     });
     const json = await res.json();
     if (json.error) {
-      console.log(json.error);
+      this.setState({
+        error: "invalid"
+      });
     } else {
       console.log(json);
       this.props.history.push();
@@ -75,6 +80,10 @@ export default class Login extends Component {
               required
               fullWidth
               id="email"
+              error={this.state.error !== ""}
+              helperText={
+                this.state.error === "invalid" ? "Invalid Credentials" : ""
+              }
               label="Email Address"
               name="email"
               autoComplete="email"
@@ -91,6 +100,10 @@ export default class Login extends Component {
               label="Password"
               type="password"
               id="password"
+              error={this.state.error !== ""}
+              helperText={
+                this.state.error === "invalid" ? "Invalid Credentials" : ""
+              }
               autoComplete="current-password"
               value={this.state.password}
               onChange={this.onChange}
