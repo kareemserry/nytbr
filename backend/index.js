@@ -49,6 +49,14 @@ app.use("/*", (req, res) => {
   res.status(404).send("Not Found");
 });
 
-app.listen(consts.envs.backendPort, () => {
-  logger.info(`Server up and running on port ${consts.envs.backendPort}`);
-});
+app.listen(
+  consts.envs.backendPort,
+  consts.envs.backendUrl.split("/")[1],
+  () => {
+    logger.info(
+      `Server up and running on  ${consts.envs.backendUrl.split("/")[1]}:${
+        consts.envs.backendPort
+      }`
+    );
+  }
+);

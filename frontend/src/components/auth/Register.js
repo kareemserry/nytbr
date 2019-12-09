@@ -9,10 +9,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import fetch from "node-fetch";
-import { backendUrl, env } from "../../api";
-import { runInThisContext } from "vm";
-import Navbar from "../common/Navbar";
-import Footer from "../common/Footer";
+import { backendUrl, env } from '../../api';
+import { runInThisContext } from 'vm';
+import Navbar from '../common/Navbar';
+import Footer from '../common/Footer';
 
 export default class Register extends Component {
   constructor() {

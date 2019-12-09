@@ -1,0 +1,37 @@
+version: "3"
+services:
+  backend:
+    environment:
+      - NYTBR_BACKEND_PORT
+      - NYTBR_BACKEND_URL=https://0.0.0.0
+      - NYTBR_FIREBASE_APP_ID
+      - NYTBR_FIREBASE_API_KEY
+      - NYTBR_FIREBASE_AUTH_DOMAIN
+      - NYTBR_FIREBASE_DATABASE_URL
+      - NYTBR_FIREBASE_MESSAGING_SENDER_ID
+      - NYTBR_FIREBASE_PROJECT_ID
+      - NYTBR_FIREBASE_STORAGE_BUCKET
+      - NYTBR_NYT_API_KEY
+      - NYTBR_SECRET
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - "${NYTBR_BACKEND_PORT}:${NYTBR_BACKEND_PORT}"
+  discord:
+    environment:
+      - NYTBR_BACKEND_PORT
+      - NYTBR_BACKEND_URL=http://backend
+      - NYTBR_SECRET
+      - NYTBR_DISCORD_TOKEN
+      - NYTBR_FRONTEND_URL
+    build:
+      context: .
+      dockerfile: ./discord/Dockerfile
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - "/app/node_modules"
+    ports:
+      - "3001:3000"
