@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Navbar from "./components/common/Navbar";
+import Footer from "./components/common/Footer";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
+import Regular from "./components/books/Regular";
+import Favourite from "./components/books/Favourite";
+import Books from "./components/books/Books";
+import Favourites from "./components/books/Favourites";
+import LinkDiscord from "./components/auth/LinkDiscord.js";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Route exact path="/register" component={Register} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/linkDiscord/:id" component={LinkDiscord} />
+      <Route exact path="/" component={Books} />
+      <Route exact path="/favourites" component={Favourites} />
+    </Router>
   );
 }
+
 
 export default App;
